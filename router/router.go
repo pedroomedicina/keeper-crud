@@ -12,6 +12,7 @@ import (
 
 func NewRouter(tagsController *controller.TagsController, usersController *controller.UsersController) *gin.Engine {
 	router := gin.Default()
+
 	// add swagger
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
