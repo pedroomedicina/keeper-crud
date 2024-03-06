@@ -3,21 +3,25 @@ package config
 import (
 	"fmt"
 	"keeper-crud/helper"
+	"os"
+	"strconv"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "0909"
-	dbName   = "keeper-crud-db"
-)
-
 func DatabaseConnection() *gorm.DB {
-	sqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbName)
+	port, err := strconv.Atoi(os.Getenv("KEEPER_DB_PORT"))
+	if err != nil {
+		helper.ErrorPanic(err)
+	}
+
+	sqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		os.Getenv("KEEPER_DB_HOST"),
+		port,
+		os.Getenv("KEEPER_DB_USER"),
+		os.Getenv("KEEPER_DB_PASSWORD"),
+		os.Getenv("KEEPER_DB_NAME"))
 	db, err := gorm.Open(postgres.Open(sqlInfo), &gorm.Config{})
 	helper.ErrorPanic(err)
 
