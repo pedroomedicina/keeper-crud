@@ -44,6 +44,18 @@ func (controller *UsersController) Signup(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
+// Signin Sign In Users		godoc
+//
+// @Summary		Sign In users
+// @Description	Authenticate users and create a session.
+// @Param		loginDetails	body	request.UserSignInRequest	true	"Signin user details"
+// @Produce		application/json
+// @Tags		users
+// @Success		200	{object}	gin.H{"message": "User signed in successfully"}
+// @Failure		400	{object}	gin.H{"error": "Invalid request"}
+// @Failure		401	{object}	gin.H{"error": "Authentication failed"}
+// @Failure		500	{object}	gin.H{"error": "Failed to save session"}
+// @Router		/signin [post]
 func (controller *UsersController) Signin(ctx *gin.Context) {
 	log.Info().Msg("signin user")
 	session := sessions.Default(ctx)
