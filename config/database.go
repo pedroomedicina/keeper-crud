@@ -16,12 +16,13 @@ func DatabaseConnection() *gorm.DB {
 		helper.ErrorPanic(err)
 	}
 
-	sqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+	sqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
 		os.Getenv("KEEPER_DB_HOST"),
 		port,
 		os.Getenv("KEEPER_DB_USER"),
 		os.Getenv("KEEPER_DB_PASSWORD"),
-		os.Getenv("KEEPER_DB_NAME"))
+		os.Getenv("KEEPER_DB_NAME"),
+		os.Getenv("KEEPER_DB_SSLMODE"))
 	db, err := gorm.Open(postgres.Open(sqlInfo), &gorm.Config{})
 	helper.ErrorPanic(err)
 
