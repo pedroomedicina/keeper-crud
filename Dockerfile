@@ -14,7 +14,7 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o myapp .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o keeper .
 
 # Start a new stage from scratch
 FROM alpine:latest
@@ -24,10 +24,10 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 
 # Copy the Pre-built binary file from the previous stage
-COPY --from=builder /app/myapp .
+COPY --from=builder /app/keeper .
 
 # Command to run the executable
-CMD ["./myapp"]
+CMD ["./keeper"]
 
 # Expose connection port
 EXPOSE 8888
