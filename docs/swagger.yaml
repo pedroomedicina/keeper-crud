@@ -9,6 +9,37 @@ definitions:
     required:
     - name
     type: object
+  request.UserSignInRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  request.UserSignUpRequest:
+    properties:
+      email:
+        type: string
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  response.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
   response.Response:
     properties:
       code:
@@ -20,10 +51,60 @@ definitions:
 host: localhost:8888
 info:
   contact: {}
-  description: A Tag service API in Go using Gin framework
-  title: Tag Service API
+  description: A Keeper API in Go using Gin framework
+  title: Keeper API
   version: "1.0"
 paths:
+  /signin:
+    post:
+      description: Authenticate users and create a session.
+      parameters:
+      - description: Signin user details
+        in: body
+        name: loginDetails
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserSignInRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Sign In users
+      tags:
+      - users
+  /signup:
+    post:
+      description: Save users data in Db.
+      parameters:
+      - description: Signup users
+        in: body
+        name: users
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserSignUpRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: SignUp users
   /tags:
     get:
       description: Return list of tags.

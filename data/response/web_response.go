@@ -5,3 +5,7 @@ type Response struct {
 	Status string      `json:"status"`
 	Data   interface{} `json:"data,omitempty"`
 }
+
+type ErrorResponse struct {
+	Error string `json:"error"`
+}

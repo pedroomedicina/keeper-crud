@@ -44,38 +44,44 @@ func (controller *UsersController) Signup(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
-// Signin Sign In Users		godoc
+// Signin Sign In Users      godoc
 //
-// @Summary		Sign In users
-// @Description	Authenticate users and create a session.
-// @Param		loginDetails	body	request.UserSignInRequest	true	"Signin user details"
-// @Produce		application/json
-// @Tags		users
-// @Success		200	{object}	gin.H{"message": "User signed in successfully"}
-// @Failure		400	{object}	gin.H{"error": "Invalid request"}
-// @Failure		401	{object}	gin.H{"error": "Authentication failed"}
-// @Failure		500	{object}	gin.H{"error": "Failed to save session"}
-// @Router		/signin [post]
+//	@Summary		Sign In users
+//	@Description	Authenticate users and create a session.
+//	@Param			loginDetails	body	request.UserSignInRequest	true	"Signin user details"
+//	@Produce		application/json
+//	@Tags			users
+//	@Success		200	{object}	response.Response{}
+//	@Failure		400	{object}	response.ErrorResponse{}
+//	@Failure		401	{object}	response.ErrorResponse{}
+//	@Failure		500	{object}	response.ErrorResponse{}
+//	@Router			/signin [post]
 func (controller *UsersController) Signin(ctx *gin.Context) {
 	log.Info().Msg("signin user")
 	session := sessions.Default(ctx)
 	loginDetails := request.UserSignInRequest{}
 
 	if err := ctx.ShouldBindJSON(&loginDetails); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
+		ctx.JSON(http.StatusBadRequest, response.ErrorResponse{Error: "Invalid request"})
 		return
 	}
 
 	user, err := controller.usersService.AuthenticateUser(loginDetails.Email, loginDetails.Password)
 	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication failed"})
+		ctx.JSON(http.StatusUnauthorized, response.ErrorResponse{Error: "Authentication failed"})
 		return
 	}
 
 	session.Set("user_id", user.ID)
 	if err := session.Save(); err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
+		ctx.JSON(http.StatusInternalServerError, response.ErrorResponse{Error: "Failed to save session"})
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"message": "User signed in successfully"})
+
+	webResponse := response.Response{
+		Code:   http.StatusOK,
+		Status: "Ok",
+		Data:   response.SignInSuccessResponse{Message: "User signed in successfully"},
+	}
+	ctx.JSON(http.StatusOK, webResponse)
 }
