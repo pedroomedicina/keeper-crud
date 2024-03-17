@@ -1,6 +1,6 @@
 module keeper-crud
 
-go 1.19
+go 1.21
 
 require (
 	github.com/gin-contrib/sessions v0.0.4

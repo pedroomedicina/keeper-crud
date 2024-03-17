@@ -78,10 +78,5 @@ func (controller *UsersController) Signin(ctx *gin.Context) {
 		return
 	}
 
-	webResponse := response.Response{
-		Code:   http.StatusOK,
-		Status: "Ok",
-		Data:   response.SignInSuccessResponse{Message: "User signed in successfully"},
-	}
-	ctx.JSON(http.StatusOK, webResponse)
+	ctx.JSON(http.StatusOK, gin.H{"message": "User signed in successfully"})
 }
