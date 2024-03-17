@@ -13,28 +13,6 @@ ingress:
 name: oyster-app
 region: nyc
 services:
-  - envs:
-      - key: KEEPER_DB_PORT
-        scope: RUN_AND_BUILD_TIME
-        value: ${KEEPER_DB_PORT}
-      - key: KEEPER_DB_HOST
-        scope: RUN_AND_BUILD_TIME
-        value: ${KEEPER_DB_HOST}
-      - key: KEEPER_DB_USER
-        scope: RUN_AND_BUILD_TIME
-        value: ${KEEPER_DB_USER}
-      - key: KEEPER_DB_PASSWORD
-        scope: RUN_AND_BUILD_TIME
-        value: ${KEEPER_DB_PASSWORD}
-      - key: KEEPER_DB_NAME
-        scope: RUN_AND_BUILD_TIME
-        value: ${KEEPER_DB_NAME}
-      - key: KEEPER_DB_SSLMODE
-        scope: RUN_AND_BUILD_TIME
-        value: ${KEEPER_DB_SSLMODE}
-      - key: KEEPER_SESSIONS_SECRET
-        scope: RUN_AND_BUILD_TIME
-        value: ${KEEPER_SESSIONS_SECRET}
     http_port: 8888
     image:
       deploy_on_push:
