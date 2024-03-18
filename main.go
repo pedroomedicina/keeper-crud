@@ -28,9 +28,9 @@ func main() {
 	db := config.DatabaseConnection()
 	validate := validator.New()
 
-	err := db.Table("tags").AutoMigrate(&model.Tags{})
-	helper.ErrorPanic(err)
-	err = db.Table("users").AutoMigrate(&model.User{})
+	// err := db.Table("tags").AutoMigrate(&model.Tags{})
+	// helper.ErrorPanic(err)
+	err := db.Table("users").AutoMigrate(&model.User{})
 	helper.ErrorPanic(err)
 
 	// Repository
