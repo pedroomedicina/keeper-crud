@@ -1,6 +1,8 @@
 package model
 
+import "gorm.io/gorm"
+
 type Tags struct {
-	Id   int    `gorm:"type:int;primary_key"`
-	Name string `gorm:"type:varchar(255)"`
+	gorm.Model        // Adds fields ID, CreatedAt, UpdatedAt, DeletedAt
+	Name       string `gorm:"type:varchar(255)"`
 }

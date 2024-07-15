@@ -44,7 +44,6 @@ func (t *TagsServiceImpl) FindAll() []response.TagsResponse {
 	var tags []response.TagsResponse
 	for _, value := range result {
 		tag := response.TagsResponse{
-			Id:   value.Id,
 			Name: value.Name,
 		}
 		tags = append(tags, tag)
@@ -59,7 +58,6 @@ func (t *TagsServiceImpl) FindById(tagsId int) response.TagsResponse {
 	helper.ErrorPanic(err)
 
 	tagResponse := response.TagsResponse{
-		Id:   tagData.Id,
 		Name: tagData.Name,
 	}
 	return tagResponse
