@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"gorm.io/gorm/logger"
 	"keeper-crud/helper"
 	"os"
 	"strconv"
@@ -23,7 +24,7 @@ func DatabaseConnection() *gorm.DB {
 		os.Getenv("KEEPER_DB_PASSWORD"),
 		os.Getenv("KEEPER_DB_NAME"),
 		os.Getenv("KEEPER_DB_SSLMODE"))
-	db, err := gorm.Open(postgres.Open(sqlInfo), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(sqlInfo), &gorm.Config{Logger: logger.Default.LogMode(logger.Info)})
 	helper.ErrorPanic(err)
 
 	return db
