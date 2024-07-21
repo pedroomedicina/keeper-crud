@@ -26,6 +26,9 @@ WORKDIR /root/
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/keeper .
 
+# Copy the migrations directory
+COPY --from=builder /app/migrations ./migrations
+
 # Command to run the executable
 CMD ["./keeper"]
 

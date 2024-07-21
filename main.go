@@ -5,7 +5,6 @@ import (
 	"keeper-crud/controller"
 	_ "keeper-crud/docs"
 	"keeper-crud/helper"
-	"keeper-crud/model"
 	"keeper-crud/repository"
 	"keeper-crud/router"
 	"keeper-crud/service"
@@ -22,22 +21,19 @@ import (
 // @host		localhost:8888
 // @BasePath	/api
 func main() {
-
 	log.Info().Msg("Started Server!")
 	// Database
 	db := config.DatabaseConnection()
-	validate := validator.New()
 
-	err := db.AutoMigrate(&model.Tags{})
-	helper.ErrorPanic(err)
-	err = db.AutoMigrate(&model.User{})
-	helper.ErrorPanic(err)
+	// err := db.AutoMigrate(&model.Tags{}, &model.User{})
+	// helper.ErrorPanic(err)
 
 	// Repository
 	tagsRepository := repository.NewTagsREpositoryImpl(db)
 	usersRepository := repository.NewUsersRepositoryImplementation(db)
 
 	// Service
+	validate := validator.New()
 	mainService := service.NewService(tagsRepository, usersRepository, validate)
 
 	// Controllers
@@ -51,6 +47,6 @@ func main() {
 		Handler: routes,
 	}
 
-	err = server.ListenAndServe()
+	err := server.ListenAndServe()
 	helper.ErrorPanic(err)
 }
