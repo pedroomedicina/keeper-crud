@@ -14,4 +14,4 @@ docker build -t keeper .
 
 ### run server container:
 
-docker run --env-file .env -p 8888:8888 --name keeper-container --network keeper-network keeper
+docker run --env-file .env -p 8888:8888 --name keeper-server --network keeper-network keeper
