@@ -25,9 +25,6 @@ func main() {
 	// Database
 	db := config.DatabaseConnection()
 
-	// err := db.AutoMigrate(&model.Tags{}, &model.User{})
-	// helper.ErrorPanic(err)
-
 	// Repository
 	tagsRepository := repository.NewTagsREpositoryImpl(db)
 	usersRepository := repository.NewUsersRepositoryImplementation(db)
