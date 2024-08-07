@@ -15,3 +15,7 @@ docker build -t keeper .
 ### run server container:
 
 docker run --env-file .env -p 8888:8888 --name keeper-server --network keeper-network keeper
+
+### run local server (best for debugging):
+
+export $(grep -v '^#' .env | xargs) && go run main.go

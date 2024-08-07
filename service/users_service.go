@@ -6,6 +6,6 @@ import (
 )
 
 type UsersService interface {
-	SignUp(user request.UserSignUpRequest)
+	SignUp(user request.UserSignUpRequest) error
 	AuthenticateUser(email string, password string) (*model.User, error)
 }
