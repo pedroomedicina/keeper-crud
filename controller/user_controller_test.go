@@ -19,8 +19,9 @@ type MockUsersService struct {
 	mock.Mock
 }
 
-func (m *MockUsersService) SignUp(req request.UserSignUpRequest) {
+func (m *MockUsersService) SignUp(req request.UserSignUpRequest) error {
 	m.Called(req)
+	return nil
 }
 
 func (m *MockUsersService) AuthenticateUser(email, password string) (*model.User, error) {
