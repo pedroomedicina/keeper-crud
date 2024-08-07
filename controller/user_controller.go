@@ -34,7 +34,18 @@ func (controller *UsersController) Signup(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&userSignUpRequest)
 	helper.ErrorPanic(err)
 
-	controller.usersService.SignUp(userSignUpRequest)
+	err = controller.usersService.SignUp(userSignUpRequest)
+	if err != nil {
+		webResponse := response.Response{
+			Code:   http.StatusBadRequest,
+			Status: http.StatusText(http.StatusBadRequest),
+			Data:   nil,
+		}
+		ctx.Header("Content-Type", "application/json")
+		ctx.JSON(http.StatusBadRequest, webResponse)
+		return
+	}
+
 	webResponse := response.Response{
 		Code:   http.StatusOK,
 		Status: "Ok",

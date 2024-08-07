@@ -21,9 +21,11 @@ func NewUsersServiceImplementation(userRepository repository.UsersRepository, va
 	}
 }
 
-func (u *UsersServiceImplementation) SignUp(user request.UserSignUpRequest) {
+func (u *UsersServiceImplementation) SignUp(user request.UserSignUpRequest) error {
 	err := u.Validate.Struct(user)
-	helper.ErrorPanic(err)
+	if err != nil {
+		return err
+	}
 
 	passwordBytes, err := bcrypt.GenerateFromPassword([]byte(user.Password), 14)
 	helper.ErrorPanic(err)
@@ -35,6 +37,7 @@ func (u *UsersServiceImplementation) SignUp(user request.UserSignUpRequest) {
 		Password: hashedPassword,
 	}
 	u.UsersRepository.SignUp(userModel)
+	return nil
 }
 
 func (u *UsersServiceImplementation) AuthenticateUser(email string, password string) (*model.User, error) {
