@@ -1,4 +1,4 @@
-package controller
+package users_controller
 
 import (
 	"bytes"
@@ -68,15 +68,15 @@ func TestUsersController_Signin(t *testing.T) {
 	router.POST("/signin", controller.Signin)
 
 	loginDetails := request.UserSignInRequest{
-		Email:    "user@example.com",
+		Email:    "users@example.com",
 		Password: "password123",
 	}
 	jsonValue, _ := json.Marshal(loginDetails)
 	req, _ := http.NewRequest(http.MethodPost, "/signin", bytes.NewBuffer(jsonValue))
 	req.Header.Set("Content-Type", "application/json")
 
-	expectedUser := &model.User{Email: "user@example.com", Name: "Test User"}
-	mockService.On("AuthenticateUser", "user@example.com", "password123").Return(expectedUser, nil)
+	expectedUser := &model.User{Email: "users@example.com", Name: "Test User"}
+	mockService.On("AuthenticateUser", "users@example.com", "password123").Return(expectedUser, nil)
 
 	responseWriter := httptest.NewRecorder()
 	router.ServeHTTP(responseWriter, req)

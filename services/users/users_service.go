@@ -1,4 +1,4 @@
-package service
+package users_service
 
 import (
 	"keeper-crud/data/request"

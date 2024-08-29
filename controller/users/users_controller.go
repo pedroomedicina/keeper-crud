@@ -1,4 +1,4 @@
-package controller
+package users_controller
 
 import (
 	"github.com/gin-contrib/sessions"
@@ -7,7 +7,7 @@ import (
 	"keeper-crud/data/request"
 	"keeper-crud/data/response"
 	"keeper-crud/helper"
-	"keeper-crud/service"
+	service "keeper-crud/services/users"
 	"net/http"
 )
 
@@ -29,7 +29,7 @@ func NewUsersController(service service.UsersService) *UsersController {
 //	@Success		200	{object}	response.Response{}
 //	@Router			/signup [post]
 func (controller *UsersController) Signup(ctx *gin.Context) {
-	log.Info().Msg("signup user")
+	log.Info().Msg("signup users")
 	userSignUpRequest := request.UserSignUpRequest{}
 	err := ctx.ShouldBindJSON(&userSignUpRequest)
 	helper.ErrorPanic(err)
@@ -59,7 +59,7 @@ func (controller *UsersController) Signup(ctx *gin.Context) {
 //
 //	@Summary		Sign In users
 //	@Description	Authenticate users and create a session.
-//	@Param			loginDetails	body	request.UserSignInRequest	true	"Signin user details"
+//	@Param			loginDetails	body	request.UserSignInRequest	true	"Signin users details"
 //	@Produce		application/json
 //	@Tags			users
 //	@Success		200	{object}	response.Response{}
@@ -68,7 +68,7 @@ func (controller *UsersController) Signup(ctx *gin.Context) {
 //	@Failure		500	{object}	response.ErrorResponse{}
 //	@Router			/signin [post]
 func (controller *UsersController) Signin(ctx *gin.Context) {
-	log.Info().Msg("signin user")
+	log.Info().Msg("signin users")
 	session := sessions.Default(ctx)
 	loginDetails := request.UserSignInRequest{}
 

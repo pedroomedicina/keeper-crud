@@ -1,4 +1,4 @@
-package service
+package users_service
 
 import (
 	"github.com/go-playground/validator/v10"
@@ -34,12 +34,10 @@ func TestUsersServiceImplementation_SignUp(t *testing.T) {
 		Password: "securepassword",
 	}
 
-	// Expectation: SignUp is called with a User model.
 	mockRepo.On("SignUp", mock.AnythingOfType("model.User")).Return()
 
 	service.SignUp(userSignUpRequest)
 
-	// Assert that the expectations were met
 	mockRepo.AssertExpectations(t)
 }
 
@@ -49,21 +47,20 @@ func TestUsersServiceImplementation_AuthenticateUser(t *testing.T) {
 	service := NewUsersServiceImplementation(mockRepo, validate)
 
 	expectedUser := &model.User{
-		Email:    "user@example.com",
+		Email:    "users@example.com",
 		Password: "$2a$14$2mxdLNoK10VyONRnK93DweKvQDm/yEFO16MIDsYltrLLBdV62zkcW",
 	}
 
-	mockRepo.On("FindByEmail", "user@example.com").Return(expectedUser, nil)
+	mockRepo.On("FindByEmail", "users@example.com").Return(expectedUser, nil)
 
-	// Simulate successful authentication
-	user, err := service.AuthenticateUser("user@example.com", "password")
+	user, err := service.AuthenticateUser("users@example.com", "password")
 
 	assert.NoError(t, err)
 	assert.NotNil(t, user)
-	assert.Equal(t, "user@example.com", user.Email)
+	assert.Equal(t, "users@example.com", user.Email)
 
 	// Simulate failed authentication (e.g., wrong password)
-	_, err = service.AuthenticateUser("user@example.com", "wrongpassword")
+	_, err = service.AuthenticateUser("users@example.com", "wrongpassword")
 	assert.Error(t, err)
 
 	mockRepo.AssertExpectations(t)

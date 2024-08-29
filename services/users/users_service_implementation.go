@@ -1,4 +1,4 @@
-package service
+package users_service
 
 import (
 	"github.com/go-playground/validator/v10"
@@ -6,7 +6,7 @@ import (
 	"keeper-crud/data/request"
 	"keeper-crud/helper"
 	"keeper-crud/model"
-	"keeper-crud/repository"
+	repository "keeper-crud/repository/users"
 )
 
 type UsersServiceImplementation struct {

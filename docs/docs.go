@@ -27,7 +27,7 @@ const docTemplate = `{
                 "summary": "Sign In users",
                 "parameters": [
                     {
-                        "description": "Signin user details",
+                        "description": "Signin users details",
                         "name": "loginDetails",
                         "in": "body",
                         "required": true,

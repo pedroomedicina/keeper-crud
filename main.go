@@ -7,7 +7,7 @@ import (
 	"keeper-crud/helper"
 	"keeper-crud/repository"
 	"keeper-crud/router"
-	"keeper-crud/service"
+	"keeper-crud/services"
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
@@ -31,7 +31,7 @@ func main() {
 
 	// Service
 	validate := validator.New()
-	mainService := service.NewService(tagsRepository, usersRepository, validate)
+	mainService := services.NewService(tagsRepository, usersRepository, validate)
 
 	// Controllers
 	mainController := controller.NewController(&mainService.TagsService, &mainService.UsersService)

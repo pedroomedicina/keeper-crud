@@ -23,7 +23,7 @@ func TestUsersRepositoryImplementation_SignUpAndFindByEmail(t *testing.T) {
 
 	repo := NewUsersRepositoryImplementation(db)
 
-	// Create a new user
+	// Create a new users
 	testUser := model.User{
 		Name:     "John Doe",
 		Email:    "johndoe@example.com",
@@ -31,7 +31,7 @@ func TestUsersRepositoryImplementation_SignUpAndFindByEmail(t *testing.T) {
 	}
 	repo.SignUp(testUser)
 
-	// Retrieve the user by email
+	// Retrieve the users by email
 	retrievedUser, err := repo.FindByEmail("johndoe@example.com")
 	assert.NoError(t, err)
 	assert.NotNil(t, retrievedUser)

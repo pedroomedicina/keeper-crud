@@ -59,7 +59,7 @@ paths:
     post:
       description: Authenticate users and create a session.
       parameters:
-      - description: Signin user details
+      - description: Signin users details
         in: body
         name: loginDetails
         required: true

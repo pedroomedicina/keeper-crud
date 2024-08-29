@@ -20,7 +20,7 @@ func DatabaseConnection() *gorm.DB {
 		helper.ErrorPanic(err)
 	}
 
-	sqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
+	sqlInfo := fmt.Sprintf("host=%s port=%d users=%s password=%s dbname=%s sslmode=%s",
 		os.Getenv("KEEPER_DB_HOST"),
 		port,
 		os.Getenv("KEEPER_DB_USER"),

@@ -2,7 +2,6 @@ package router
 
 import (
 	"keeper-crud/controller"
-
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,7 +9,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func NewRouter(tagsController *controller.TagsController, usersController *controller.UsersController) *gin.Engine {
+func NewRouter(tagsController *controller.TagsController, usersController *user.UsersController) *gin.Engine {
 	router := gin.Default()
 
 	// add swagger

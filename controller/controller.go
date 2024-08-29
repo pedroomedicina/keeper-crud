@@ -1,15 +1,18 @@
 package controller
 
-import "keeper-crud/service"
+import (
+	userscontroller "keeper-crud/controller/users"
+	tasksservice "keeper-crud/services/tasks"
+	usersservice "keeper-crud/services/users"
+)
 
 type Controller struct {
-	TagsController  *TagsController
-	UsersController *UsersController
+	UsersController *userscontroller.UsersController
 }
 
-func NewController(tagsService *service.TagsService, usersService *service.UsersService) *Controller {
+func NewController(tasksService *tasksservice.TasksService, usersService *usersservice.UsersService) *Controller {
 	return &Controller{
-		TagsController:  NewTagsController(*tagsService),
-		UsersController: NewUsersController(*usersService),
+		// TasksController: ,
+		UsersController: userscontroller.NewUsersController(*usersService),
 	}
 }
