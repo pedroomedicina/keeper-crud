@@ -157,3 +157,35 @@ func (ctrl *TasksController) UpdateTask(ctx *gin.Context) {
 	ctx.Header("Content-Type", "application/json")
 	ctx.JSON(http.StatusOK, webResponse)
 }
+
+// DeleteTask Delete Task godoc
+//
+//	@Summary		Delete Task
+//	@Description	Delete task data by ID.
+//	@Param			tasks	query	request.DeleteTaskRequest	true	"delete a task"
+//	@Produce		application/json
+//	@Tasks			tasks
+//	@Success		200	{object}	response.Response{}
+//	@Router			/tasks/:id [delete]
+func (ctrl *TasksController) DeleteTask(ctx *gin.Context) {
+	taskId, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, response.ErrorResponse{Error: "Invalid task ID"})
+		return
+	}
+
+	err = ctrl.tasksService.DeleteTask(ctx.Request.Context(), taskId)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, response.ErrorResponse{Error: "Failed to delete task"})
+		return
+	}
+
+	webResponse := response.Response{
+		Code:   http.StatusOK,
+		Status: "Ok",
+		Data:   "Task deleted successfully",
+	}
+
+	ctx.Header("Content-Type", "application/json")
+	ctx.JSON(http.StatusOK, webResponse)
+}

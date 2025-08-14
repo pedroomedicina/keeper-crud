@@ -5,7 +5,8 @@ import (
 	"keeper-crud/controller"
 	_ "keeper-crud/docs"
 	"keeper-crud/helper"
-	"keeper-crud/repository"
+	tasksrepository "keeper-crud/repository/tasks"
+	usersrepository "keeper-crud/repository/users"
 	"keeper-crud/router"
 	"keeper-crud/services"
 	"net/http"
@@ -26,18 +27,18 @@ func main() {
 	db := config.DatabaseConnection()
 
 	// Repository
-	tagsRepository := repository.NewTagsREpositoryImpl(db)
-	usersRepository := repository.NewUsersRepositoryImplementation(db)
+	tasksRepository := tasksrepository.NewTasksRepositoryImplementation(db)
+	usersRepository := usersrepository.NewUsersRepositoryImplementation(db)
 
 	// Service
 	validate := validator.New()
-	mainService := services.NewService(tagsRepository, usersRepository, validate)
+	mainService := services.NewService(tasksRepository, usersRepository, validate)
 
 	// Controllers
-	mainController := controller.NewController(&mainService.TagsService, &mainService.UsersService)
+	mainController := controller.NewController(&mainService.TasksService, &mainService.UsersService)
 
 	// Router
-	routes := router.NewRouter(mainController.TagsController, mainController.UsersController)
+	routes := router.NewRouter(mainController.TasksController, mainController.UsersController)
 
 	server := &http.Server{
 		Addr:    ":8888",

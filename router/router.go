@@ -1,7 +1,8 @@
 package router
 
 import (
-	"keeper-crud/controller"
+	taskscontroller "keeper-crud/controller/tasks"
+	userscontroller "keeper-crud/controller/users"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,7 +10,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func NewRouter(tagsController *controller.TagsController, usersController *user.UsersController) *gin.Engine {
+func NewRouter(tasksController *taskscontroller.TasksController, usersController *userscontroller.UsersController) *gin.Engine {
 	router := gin.Default()
 
 	// add swagger
@@ -19,7 +20,7 @@ func NewRouter(tagsController *controller.TagsController, usersController *user.
 		ctx.JSON(http.StatusOK, "welcome home")
 	})
 	baseRouter := router.Group("/api")
-	SetupTagsRouter(baseRouter, tagsController)
+	SetupTasksRouter(baseRouter, tasksController)
 	SetupUsersRouter(baseRouter, usersController)
 
 	return router
